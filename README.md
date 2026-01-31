@@ -4,7 +4,16 @@ Open Source HamClock Backend Replacement. This is a community project and no rel
 # License
 MIT - this is free. Not for commercial use
 
-# Compile
+# Project Completion Status
+- [x] Bz.txt generator
+- [ ] aurora.txt generator
+- [ ] VOACAP map generator
+- [x] HamWeekly.com RSS feed generator
+- [x] AR Newsline RSS feed generator
+- [x] zlib decompress utilty script
+- [x] Generic backend to keep HamClocks alive beyond June 2026
+- [ ] Complete end-to-end working backend
+# Compile Backend
 
 1. Use WSL2 and Ubuntu 22 LTS
 2. Clone repository
