@@ -90,7 +90,10 @@ You will need:
   libxml-feed-perl \
   libhtml-parser-perl
   
-  tar xzf hamclock-backend.tar.gz
-  cd hamclock-backend
-  lighttpd -f etc/lighttpd.conf
-  crontab cron/hamclock.cron
+  sudo tar xzf hamclock-backend.tar.gz -C /opt
+  sudo chown -R www-data:www-data /opt/hamclock-backend
+  sudo chmod +x /opt/hamclock-backend/htdocs/ham/HamClock/*.pl
+  sudo cp 50-hamclock.conf /etc/lighttpd/conf-available/50-hamclock.conf
+  sudo lighttpd -tt -f /etc/lighttpd/lighttpd.conf
+  sudo lighttpd-enable-mod hamclock
+  sudo systemctl restart lighttpd
