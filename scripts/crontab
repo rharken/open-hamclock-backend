@@ -1,0 +1,2 @@
+10 0 * * * /opt/hamclock-backend/scripts/gen_swind_24hr.pl \
+  > /opt/hamclock-backend/htdocs/ham/HamClock/swind-24hr.txt
