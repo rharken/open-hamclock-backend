@@ -9,6 +9,7 @@ MIT - this is free. Not for commercial use
 - [x] wx.pl working
 - [ ] aurora.txt generator
 - [ ] VOACAP map generator
+- [ ] IP geolocation implemented
 - [x] HamWeekly.com RSS feed generator
 - [x] AR Newsline RSS feed generator
 - [x] zlib decompress utilty script
