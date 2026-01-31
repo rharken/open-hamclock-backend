@@ -30,8 +30,14 @@ MIT - this is free. Not for commercial use
 - [ ] maps/map-N-660x330-Clouds.bmp.z
 - [ ] maps/map-N-660x330-Terrain.bmp.z
 - [ ] maps/map-D-660x330-DRAP-S.bmp.z
+- [ ] maps/map-N-660x330-DRAP-S.bmp.z
+- [ ] maps/map-N-660x330-MUF-RT.bmp.z
+- [ ] maps/map-D-660x330-MUF-RT.bmp.z
+- [ ] maps/map-D-660x330-Aurora.bmp.z
+- [ ] maps/map-N-660x330-Aurora.bmp.z
 - [ ] SDO/f_304_170.bmp.z
 - [ ] fetchVOACAP-MUF.pl?YEAR=2026&MONTH=1&UTC=17&TXLAT=&TXLNG=&PATH=0&WATTS=100&WIDTH=660&HEIGHT=330&MHZ=0.00&TOA=3.0&MODE=19&TOA=3.0
+- [ ] fetchVOACAP-TOA.pl?YEAR=2026&MONTH=1&UTC=17&TXLAT=&TXLNG=&PATH=0&WATTS=100&WIDTH=660&HEIGHT=330&MHZ=14.10&TOA=3.0&MODE=19&TOA=3.0
 - [ ] RSS/web15rss.pl
 - [x] HamWeekly.com RSS feed generator
 - [x] AR Newsline RSS feed generator
