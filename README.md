@@ -68,7 +68,8 @@ HamClock requests about 40+ artifacts. I have locally replicated all of them tha
 
 # Images
 - SDO/f_304_170.bmp.z : This is a zlib compressed bitmap. It comes from here most likely: https://umbra.nascom.nasa.gov/images/latest.html and https://umbra.nascom.nasa.gov/images/latest_aia_304.gif
-
+- maps/Clouds : ftp://public.sos.noaa.gov/rt/sat/linear/raw/
+  
 Decompressing the images for viewing can be done using $ zlib-flate -uncompress < filename.bmp.z > newfilename.bmp
 
 Images with N means Night and D means Day
