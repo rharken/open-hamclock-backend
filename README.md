@@ -91,7 +91,13 @@ The goal is to make this as a drop-in replacement for the HamClock backend by re
 - perl-HTML-Parser
 - VOACAPL: https://www.qsl.net/hz1jw/voacapl/index.html
 - ImageMagick
-- numpy
+- libeccodes-dev
+- libg2c-dev
+- libjasper-dev
+- libpng-dev
+- python3-numpy
+- python3-pypro
+- python3-dev
 
 ### Prerequisites
 
