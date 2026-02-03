@@ -91,12 +91,11 @@ Decompressing the images for viewing can be done using $ zlib-flate -uncompress 
 
 Images with N means Night and D means Day
 
-## Requirements:
-- perl
-- lighttpd (or apache httpd with CGI enabled)
-- sudo apt install -y build-essential gfortran gcc make libc6-dev \
-  libx11-dev libxaw7-dev libxmu-dev libxt-dev libmotif-dev wget (needed for VOACAPL)
-- VOACAPL: https://www.qsl.net/hz1jw/voacapl/index.html
+## Requirements and Install
+
+### Dependency Install
+- sudo apt install -y perl
+- sudo apt install -y lighttpd
 - sudo apt install -y imagemagick
 - sudo apt install -y libwww-perl
 - sudo apt install -y libjson-perl
@@ -115,6 +114,33 @@ Images with N means Night and D means Day
 - sudo apt install -y python3-numpy (optional - pip should be used)
 - sudo apt install -y python3-pyproj
 - sudo apt install -y python3-dev
+- sudo apt install -y build-essential gfortran gcc make libc6-dev \
+  libx11-dev libxaw7-dev libxmu-dev libxt-dev libmotif-dev wget (needed for VOACAPL)
+- sudo wget https://downloads.sourceforge.net/project/voacap/vocap/voacapl-0.7.6.tar.gz
+  Note: VOACAPL install instructions in work
+
+### Install:
+```bash
+  sudo tar xzf hamclock-backend.tar.gz -C /opt
+  sudo chown -R www-data:www-data /opt/hamclock-backend
+  sudo chmod +x /opt/hamclock-backend/htdocs/ham/HamClock/*.pl
+  sudo cp 50-hamclock.conf /etc/lighttpd/conf-available/50-hamclock.conf
+
+  # Update the server modules inside your lighttpd configuration file located at: /etc/lighttpd/lighttpd.conf
+  # Only change should be the "mod_cgi" module at the end:
+      server.modules = (
+          "mod_indexfile",
+          "mod_access",
+          "mod_alias",
+          "mod_redirect",
+          "mod_cgi",
+      )
+
+  sudo lighttpd -tt -f /etc/lighttpd/lighttpd.conf
+  sudo lighttpd-enable-mod hamclock
+  sudo systemctl restart lighttpd
+  # add crontab as user www-data and described in scripts/crontab
+```
 
 ## Prerequisites
 
@@ -128,8 +154,6 @@ You will need:
   
 ## Install:
 ```bash
-  apt install lighttpd libwww-perl libjson-perl libxml-rss-perl libxml-feed-perl libhtml-parser-perl
-  
   sudo tar xzf hamclock-backend.tar.gz -C /opt
   sudo chown -R www-data:www-data /opt/hamclock-backend
   sudo chmod +x /opt/hamclock-backend/htdocs/ham/HamClock/*.pl
