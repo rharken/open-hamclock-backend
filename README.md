@@ -97,7 +97,7 @@ HamClock requests about 40+ artifacts. I have locally replicated all of them tha
 - [ ] Aurora night - not working
 - [ ] ONTA - works, needs more de-duping; update 0.4 will have updated cache file and generation script
 - [x] 304a solar image
-- [ ] SSN data - invalid
+- [ ] SSN data - invalid - fixed in next version. Need new script to test
 - [x] Solar wind
 - [ ] DRAP data - invalid
 - [ ] Planetary k - invalid
