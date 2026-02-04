@@ -13,7 +13,7 @@ data=$(curl -s "$URL")
 extract_scale() {
     local key=$1
     # .// "0" handles null values by replacing them with 0
-    echo "$data" | jq -r "([.\"0\".$key.Scale, .\"1\".$key.Scale, .\"2\".$key.Scale, .\"3\".$key.Scale] | map(. // \"0\>
+    echo "$data" | jq -r "([.\"0\".$key.Scale, .\"1\".$key.Scale, .\"2\".$key.Scale, .\"3\".$key.Scale] | map(. // \"0\")) | \"$key  \" + join(\" \")"
 }
 
 # Generate the output and write to the text file
