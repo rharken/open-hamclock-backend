@@ -101,7 +101,6 @@ HamClock requests about 40+ artifacts. I have locally replicated all of them tha
 - [x] Aurora Day
 - [ ] Aurora Night
 - [x] Parks on the Air
-- [x] 
 - [x] SSN
 - [x] Solar Wind
 - [x] DRAP 
