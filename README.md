@@ -58,28 +58,32 @@ This project generates map and data artifacts in the same formats expected by th
 HamClock is hard-coded to use the clearskyinstitute.com URL. You can override to use a new backend by starting HamClock with the -b option
 
 ### Localhost (if running OHB adjacent to your existing HamClock client such as Raspberry Pi)
-
+```bash
 ./hamclock -b localhost:80
+```
 
 ### Different Central Server
-
+```bash
 ./hamclock -b \<central-server-ip-or-host\>:80
-
+```
 ## Stopping OHB
 ### Web Server
+```bash
 sudo systemctl stop lighttpd
-
+```
 ### Cron Jobs
 #### Remove all jobs
+```bash
 sudo crontab -u www-data -l > ~/www-data.cron.backup
 sudo crontab -u www-data -r
-
-Note: Removing the cron jobs will stop all background processes. Ensure that the www-data.cron.backup actually was created before you remove all of www-data user's cronjobs
+```
+Note: Removing the cron jobs will stop all future background processes, not currently running. Ensure that the www-data.cron.backup actually was created before you remove all of www-data user's cronjobs
 
 #### Restore all jobs
+```bash
 sudo crontab -u www-data /path/to/www-data.cron.backup
 sudo crontab -u www-data -l | head
-
+```
 ## Project Completion Status
 
 HamClock requests about 40+ artifacts. I have locally replicated all of them that I could find.
