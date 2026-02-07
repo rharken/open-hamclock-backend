@@ -15,12 +15,14 @@ https://discord.gg/k2Nmdjup
 
 ## Attribution
 - [MUF-RT](https://prop.kc2g.com/) Note: MUF-RT data for this map are from GIRO collected and used by permission from KC2G.
-- NOAA
-- NASA
+- [Space Weather Prediction Center](https://www.swpc.noaa.gov/)
+- NASA for [SDO](https://sdo.gsfc.nasa.gov/) and [STEREO](https://stereo.gsfc.nasa.gov/) images
+- National Research Council Canada [10.7 cm solar flux](https://www.spaceweather.gc.ca/forecast-prevision/solar-solaire/solarflux/sx-en.php) data
 - [HamWeekly.com](https://hamweekly.com/)
 - [NG3K.com](https://www.ng3k.com/)
 - [ARNewsline.com](https://www.arnewsline.org/)
 - [PSKReporter](https://pskreporter.info/) by Phillip Gladstone
+- [WSPR Live](https:/wspr.live/)
 - [WA7BNM Weekend Contests Calendar](https://www.contestcalendar.com/) 
 
 ## Vision
