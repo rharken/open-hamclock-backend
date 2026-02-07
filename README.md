@@ -110,7 +110,7 @@ Note: Anything under maps/ is considered a "Core Map" in HamClock
 - [ ] ham/HamClock/fetchVOACAP-MUF.pl?YEAR=2026&MONTH=1&UTC=17&TXLAT=&TXLNG=&PATH=0&WATTS=100&WIDTH=660&HEIGHT=330&MHZ=0.00&TOA=3.0&MODE=19&TOA=3.0
 - [ ] ham/HamClock/fetchVOACAP-TOA.pl?YEAR=2026&MONTH=1&UTC=17&TXLAT=&TXLNG=&PATH=0&WATTS=100&WIDTH=660&HEIGHT=330&MHZ=14.10&TOA=3.0&MODE=19&TOA=3.0
 - [x] ham/HamClock/fetchPSKReporter.pl?ofgrid=XXYY&maxage=1800
-- [ ] ham/HamClock/fetchWSPR.pl
+- [x] ham/HamClock/fetchWSPR.pl
 - [ ] ham/HamClock/fetchRBN.pl
 
 ### Static Files
