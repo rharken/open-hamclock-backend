@@ -240,6 +240,7 @@ STEP=$((STEP+1)); progress $STEP $STEPS
 echo -e "${BLU}==> Configuring lighttpd${NC}"
 
 sudo ln -sf "$BASE/50-hamclock.conf" /etc/lighttpd/conf-enabled/50-hamclock.conf
+sudo lighttpd-enable-mod cgi
 sudo lighttpd -t -f /etc/lighttpd/lighttpd.conf
 sudo systemctl daemon-reload
 sudo systemctl restart lighttpd
