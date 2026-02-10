@@ -77,7 +77,7 @@ Finally, start it!
 docker compose up -d
 ```
 
-If it's the first time you've run it, it can take a while to populate the data. Nearly all of the current data should be ready in around 15-30 minutes depending on internet speed. In some cases history has to accumulate for all the graphs to look right which could take days. But while you wait days, you'll have a fully functioning hamclock with your own custom OHB.
+If it's the first time you've run it, it can take a while to populate the data. Nearly all of the current data should be ready in around 60 minutes depending on internet speed. In some cases history has to accumulate for all the graphs to look right which could take days. But while you wait days, you'll have a fully functioning hamclock with your own custom OHB.
 
 Go to the project readme and look for information about the '-b' otion to hamclock. This will make your hamclock pull from your OHB.
 
