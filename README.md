@@ -34,8 +34,6 @@ This project generates map and data artifacts in the same formats expected by th
 ## In Work
 - maps/Aurora
 Status: In Progress. We made progress by developing a script to create the base layer and have an Aurora producing script. However, we have not produced all the base layer maps to be able to support all Aurora map sizes. Only Night has been proven to be working so far at 660x330
-- fetchBandConditions.pl
-Status: In Progress. We are investigating and testing the use of ITURHFPROP over VOACAP to see if we get the same results
 
 ## Known Issues
 [Active Issues](https://github.com/BrianWilkinsFL/open-hamclock-backend/issues)
