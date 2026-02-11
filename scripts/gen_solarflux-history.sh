@@ -1,17 +1,23 @@
 #!/bin/bash
 
+# the last year of history in our seed history file
+LAST_YEAR_SEED=2025
+
 # Get the year and month for a month ago
 YEAR=$(date -d "last month" +%Y)
 MONTH=$(date -d "last month" +%m)
 TARGET_MONTH="${YEAR}${MONTH}"
 
+SEED_FILE="/opt/hamclock-backend/htdocs/ham/HamClock/solar-flux/solarflux-seed.txt"
 OUTPUT="/opt/hamclock-backend/htdocs/ham/HamClock/solar-flux/solarflux-history.txt"
 URL="https://www.spaceweather.gc.ca/solar_flux_data/daily_flux_values/fluxtable.txt"
 
-# if the file doesn't exist, this is a fresh start so get the whole history. 
-# Otherwise just get the latest values
+# if the file doesn't exist, this is a fresh start. We've got a seed history file that goes
+# through 2025. Grab all the data since the and append. This will start our history. Going 
+# forward data is added just one month at a time
 if [ ! -e "OUTPUT" ]; then
-    curl -s "$URL" | awk -v m="$MONTH" -v y="$YEAR" -v target="$TARGET_MONTH" '
+    cp $SEED_FILE $OUTPUT
+    curl -s "$URL" | awk -v lastyear="$LAST_YEAR_SEED" '
         # 1. Skip lines that are empty or contain headers (starting with # or non-numeric)
         # The data lines usually start with a Julian Date (large number).
         /^[[:space:]]*[0-9]/ {
@@ -25,7 +31,7 @@ if [ ! -e "OUTPUT" ]; then
             flux = $5
             
             # Only process if flux is a valid positive number
-            if (flux > 0) {
+            if (flux > 0 && year > lastyear ) {
                 key = year + ((month - 1) / 12)
                 sum[key] += flux
                 count[key]++
