@@ -18,18 +18,15 @@ close $fh;
 
 die "Insufficient cache history\n" unless @values >= 1;
 
-# Ensure at least 90 observed values
-if (@values < 90) {
+# Ensure at least 90 observed values and 9 predicted values
+if (@values < 99) {
     my $pad = $values[0];
-    unshift @values, $pad while @values < 90;
+    unshift @values, $pad while @values < 99;
 } else {
-    @values = splice(@values, -90);
+    @values = splice(@values, -99);
 }
 
 my $today = $values[-1];
-
-# Append 9 prediction slots (repeat last observed)
-push @values, ($today) x 9;
 
 die "Internal error\n" unless @values == 99;
 

@@ -3,13 +3,16 @@ use strict;
 use warnings;
 
 use LWP::UserAgent;
+use Time::Piece;
 
 my $URL = 'https://spaceweather.gc.ca/solar_flux_data/daily_flux_values/fluxtable.txt';
+my $URL_PREDICT = 'https://services.swpc.noaa.gov/text/45-day-ap-forecast.txt';
 my $CACHE = '/opt/hamclock-backend/data/solarflux-cache.txt';
-my $MAX_DAYS = 90;
+my $MAX_VALUES = 99;
 
 my $ua = LWP::UserAgent->new(timeout => 10);
 
+# Get SFI history
 my $resp = $ua->get($URL);
 die "Fetch failed\n" unless $resp->is_success;
 
@@ -28,7 +31,7 @@ if (open my $fh, '<', $CACHE) {
     close $fh;
 }
 
-# Parse NOAA file
+# Parse spaceweather canada file
 for my $line (split /\n/, $resp->decoded_content) {
 
     next if $line =~ /^[a-zA-Z-]/;
@@ -45,9 +48,37 @@ for my $line (split /\n/, $resp->decoded_content) {
     $seen{$Ymd.$time} = 1;
 }
 
+# Get SFI predictions
+$resp = $ua->get($URL_PREDICT);
+die "Fetch failed\n" unless $resp->is_success;
+
+# Parse NOAA file
+# hardcoded to find the one line with 3 entries and pull those entries
+my @lines = split /\n/, $resp->decoded_content;
+for my $i (0 .. $#lines) {
+    if ($lines[$i] =~ /45-DAY F10.7 CM FLUX FORECAST/) {
+        # Grab the immediate next line of data
+        my $data_row = $lines[$i+1];
+
+        # Split the row into individual tokens
+        my @fields = split ' ', $data_row;
+
+        # values are date sfi data sfi ...
+        # (Assuming format: Date Value Date Value Date Value)
+        for my $j (0 .. 2) {
+            my ($Ymd,$flux) = (Time::Piece->strptime($fields[$j*2], "%d%b%y")->strftime("%Y-%m-%d"), $fields[$j*2+1])
+                if defined $fields[$j] && defined $fields[$j+1];
+            # need 3 values per day but we only get 1 - so thrice
+            push @cache, [$Ymd, sprintf('%d', $flux) ];
+            push @cache, [$Ymd, sprintf('%d', $flux) ];
+            push @cache, [$Ymd, sprintf('%d', $flux) ];
+        }
+    }
+}
+
 # Sort and trim
 @cache = sort { $a->[0] cmp $b->[0] } @cache;
-@cache = splice(@cache, -$MAX_DAYS) if @cache > $MAX_DAYS;
+@cache = splice(@cache, -$MAX_VALUES) if @cache > $MAX_VALUES;
 
 # Write back
 open my $out, '>', $CACHE or die "Write cache failed\n";
