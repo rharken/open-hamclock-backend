@@ -1,6 +1,7 @@
 #!/bin/bash
 
 # By SleepyNinja
+THIS=$(basename $0)
 
 # Define JSON URL and Output Path
 URL="https://services.swpc.noaa.gov/json/ovation_aurora_latest.json"
@@ -27,11 +28,13 @@ if [ -e "$OUT" ]; then
     echo "$TRIMMED_DATA" > "$OUT"
 
 else
+    TMPFILE=$(mktemp /opt/hamclock-backend/cache/$THIS-XXXXX)
     # if the file doesn't exist, go backwards for 48 samples every
     # 30 minutes
     for i in {0..47}; do
-        echo "$(($EPOCH_TIME - 30 * 60 * $i)) $MAX_VALUE" >> "$OUT"
+        echo "$(($EPOCH_TIME - 30 * 60 * $i)) $MAX_VALUE" >> "$TMPFILE"
     done
     # needs to be increasing
-    sort -V -o $OUT $OUT
+    sort -V -o $OUT $TMPFILE
+    rm -f $TMPFILE
 fi
