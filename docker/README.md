@@ -43,7 +43,7 @@ Be sure you have a recent docker and docker compose installed before proceeding.
 
 Either get the source tree from GitHub or download the manage-ohb-docker.sh script. Getting the source tree is only necessary if you plan to build your own custom image, which is covered down below.
 
-### get the GitHub source tree
+### option 1: get the GitHub source tree
 The git clone command below should have the right URL but you can check it by visiting https://github.com/BrianWilkinsFL/open-hamclock-backend, click on the green "Code" button and copy the https url.
 
 On your computer, clone the repository:
@@ -62,7 +62,7 @@ git tag # lists the available tags
 git checkout 1.0
 ```
 
-### download the manager:
+### option 2: download the manager:
 Find the tag you want from git:
 ```
 https://github.com/BrianWilkinsFL/open-hamclock-backend/tags
@@ -73,6 +73,7 @@ curl -sO https://raw.githubusercontent.com/BrianWilkinsFL/open-hamclock-backend/
 chmod +x manage-ohb-docker.sh
 ```
 
+## Run the manager
 Check out options with help:
 ```
 # the help outputs options
@@ -98,23 +99,20 @@ docker logs -f open-hamclock-backend
 ```
 
 
-CURRENTLY BEING UPDATED .... IGNORE BELOW
+## Point you hamclock to your new back end
 
 Go to the project readme and look for information about the '-b' otion to hamclock. This will make your hamclock pull from your OHB.
 
 # Install OHB with your own image
 ## The steps if you want to create your own image
-The steps to create your own image are almost exactly the same as using the official image. The difference is when runing the build-image.sh script, don't pass it '-c'. The '-c' option means create only the docker-compose file. If you remove that option, it will do the full image creation:
+You'll need a git checkout of the version you want to build. See above for getting a git clone and checkout.
+
+The build-image.sh utility will create an image for you based on the git branch you have checked out. If you aren't on a git tag, the resulting image will be tagged 'latest':
 ```
 ./build-image.sh
 ```
-Optionally you can pass it the -p option to customize the port or run -c later with the -p option to change it. The port is not in the image, it's in the compose file.
 
-You still need to clone the git respository, pick out your preferred branch or release, do the setup (if it's your first time) and docker compose up. So basically follow the steps in the last section except leave out '-c'.
-
-## Other options
-In some cases port 80 might not be available on your OHB server. You can customize the port using the -p option. In the steps above, create the compose file again providing the -p option with your preferred port and run the docker compose up command again.
-
+# BREAK: README updates in process
 # Upgrades
 Upgrading OHB is easy. Basically run all the steps above again. You don't need to run docker-ohb-setup.sh but it won't hurt if you do.
 
