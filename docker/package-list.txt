@@ -8,6 +8,9 @@ vim
 cron
 curl
 ffmpeg
+gmt
+gmt-gshhg
+gmt-dcw
 imagemagick
 jq
 libhtml-parser-perl
