@@ -36,7 +36,7 @@ $THIS:
         - remember to setup a buildx container: 
             docker buildx create --name ohb --driver docker-container --use
             docker buildx inspect --bootstrap
-    -n: add no-cache to build
+    -n: add --no-cache to build
 EOF
     exit 0
 }
@@ -109,7 +109,7 @@ build_image() {
     pushd "$HERE/.." >/dev/null
     echo $GIT_VERSION > git.version
     if [ $MULTI_PLATFORM == true ]; then
-        docker buildx build -t $IMAGE -f docker/Dockerfile --platform linux/amd64,linux/arm64 --push .
+        docker buildx build $NOCACHE_ARG -t $IMAGE -f docker/Dockerfile --platform linux/amd64,linux/arm64 --push .
     else
         docker build $NOCACHE_ARG -t $IMAGE -f docker/Dockerfile .
     fi
