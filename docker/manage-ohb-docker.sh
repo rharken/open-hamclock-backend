@@ -28,6 +28,10 @@ main() {
             shift && get_compose_opts "$@"
             install_ohb
             ;;
+        upgrade)
+            shift && get_compose_opts "$@"
+            upgrade_ohb
+            ;;
         full-reset)
             shift
             get_compose_opts "$@"
@@ -96,6 +100,11 @@ $THIS <COMMAND> [options]:
             -p: set the HTTP port
             -t: set image tag
 
+    upgrade [-p <port>] [-t <tag>]
+            upgrade ohb; defaults to current git tag if there is one. Otherwise you can provide one.
+            -p: set the HTTP port (defaults to current setting)
+            -t: set image tag
+
     full-reset [-p <port>] [-t <tag>]: 
             clear out all data and start fresh
             -p: set the HTTP port (defaults to current setting)
@@ -138,6 +147,22 @@ install_ohb() {
     return $RETVAL
 }
 
+install_ohb() {
+    check_docker_installed >/dev/null || return $?
+    check_dvc_created || return $?
+
+    echo "Upgrading OHB ..."
+
+    echo "Starting the container ..."
+    if docker_compose_up; then
+        echo "Container started successfully."
+    else
+        echo "ERROR: failed to start OHB with docker compose up"
+        return $RETVAL
+    fi
+    return $RETVAL
+}
+
 check_docker_installed() {
     DOCKERD_VERSION=$(dockerd -v 2>/dev/null)
     DOCKERD_RETVAL=$?
@@ -164,10 +189,10 @@ check_dvc_created() {
         echo "was found."
         echo
         echo "Maybe you wanted to upgrade:"
-        echo "  $THIS --upgrade"
+        echo "  $THIS upgrade"
         echo "or"
         echo "Maybe you wanted to reset the system and all its data:"
-        echo "  $THIS --full-reset"
+        echo "  $THIS full-reset"
         RETVAL=1
     fi
     return $RETVAL
