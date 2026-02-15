@@ -252,6 +252,15 @@ fi
 
 sudo lighttpd -t -f /etc/lighttpd/lighttpd.conf
 
+# Disable conflicting javascript conf
+sudo lighttpd-disable-mod javascript-alias
+ls /etc/lighttpd/conf-enabled | grep javascript
+
+sudo lighttpd -tt -f /etc/lighttpd/lighttpd.conf
+sudo systemctl reload lighttpd
+
+
+
 # Enable CGI module; some distros return non-zero when it's already enabled
 out="$(sudo lighttpd-enable-mod cgi 2>&1)" || rc=$?
 if [[ ${rc:-0} -ne 0 ]]; then
