@@ -277,19 +277,17 @@ docker_compose_down() {
     docker compose -f <(docker_compose_yml) down -v
     RETVAL=$?
 
-    is_container_running
-    if [ $? -eq 0 ]; then
+    if is_container_exists; then
         RUNNING_PROJECT=$(docker inspect open-hamclock-backend | jq -r '.[0].Config.Labels."com.docker.compose.project"')
         if [ "$RUNNING_PROJECT" != "$DOCKER_PROJECT" ]; then
             echo "ERROR: this OHB was created with a different docker-compsose file. Please run"
-            echo "    'docker compose down -v'"
+            echo "    'docker stop $CONTAINER'"
+            echo "    'docker rm $CONTAINER'"
             echo "before running this utility."
         else
             echo "ERROR: OHB failed to stop."
         fi
         RETVAL=1
-    else
-        echo "OHB was not running."
     fi
     
     return $RETVAL
