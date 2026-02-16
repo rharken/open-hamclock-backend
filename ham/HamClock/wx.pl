@@ -12,11 +12,11 @@ my %weather_apis = (
     }, 'open-meteo.com' => {
         'func' => \&open_meteo,
         'attrib' => 'open-mateo.com',
-        'apikey' => $ENV{'OPEN_METEO_API_KEY'},
+        'apikey' => $ENV{'OPEN_METEO_API_KEY'} // "",
     }, 'openweathermap.org' => {
         'func' => \&open_weather,
         'attrib' => 'openweathermap.org',
-        'apikey' => $ENV{'OPEN_WEATHER_API_KEY'},
+        'apikey' => $ENV{'OPEN_WEATHER_API_KEY'} // "",
     },
 );
 
@@ -201,7 +201,7 @@ sub open_weather {
     my ($lat, $lng, $wx) = @_;
     my $base_url = "https://api.openweathermap.org/data/2.5/weather";
     my $get_lat_lng = "?lat=$lat&lon=$lng";
-    my $get_api = ""; #"&appid=$weather_apis{'openweathermap.org'->{'apikey'}";
+    my $get_api = "&appid=$weather_apis{'openweathermap.org'}->{'apikey'}";
     my $get_params = "&units=metric";
 
     my $p = $UA->get($base_url.$get_lat_lng.$get_api.$get_params);
