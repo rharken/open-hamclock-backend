@@ -190,7 +190,8 @@ sudo mkdir -p \
  "$BASE/logs" \
  "$BASE/cache" \
  "$BASE/data" \
- "$BASE/htdocs/ham/HamClock"
+ "$BASE/htdocs/ham/HamClock" \
+ "$BASE/htdocs/ham/HamClock/Bz"
 
 #Fix www-data gmt execution error
 sudo mkdir -p /var/www/.gmt
