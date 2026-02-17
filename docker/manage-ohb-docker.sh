@@ -169,7 +169,7 @@ install_ohb() {
     if create_dvc; then
         echo "Persistent storage created successfully."
     else
-        echo "ERROR: failed to create persistence storage."
+        echo "ERROR: failed to create persistence storage." >&2
         return $RETVAL
     fi
 
@@ -177,7 +177,7 @@ install_ohb() {
     if docker_compose_up; then
         echo "Container started successfully."
     else
-        echo "ERROR: failed to start OHB with docker compose up"
+        echo "ERROR: failed to start OHB with docker compose up" >&2
         return $RETVAL
     fi
     return $RETVAL
@@ -286,8 +286,17 @@ check_dvc_created() {
 }
 
 docker_compose_up() {
-    docker_compose_yml && docker compose -f <(echo "$DOCKER_COMPOSE_YML") up -d
-    RETVAL=$?
+    if is_container_running; then
+        echo "OHB is already running."
+        RETVAL=0
+    else
+        docker_compose_yml && docker compose -f <(echo "$DOCKER_COMPOSE_YML") create 
+        if [ -n "$REQUESTED_ENV_FILE" -o -r "$DEFAULT_ENV_FILE" ]; then
+            copy_env_to_container >/dev/null
+        fi
+        docker_compose_yml && docker compose -f <(echo "$DOCKER_COMPOSE_YML") up -d
+        RETVAL=$?
+    fi
 
     return $RETVAL
 }
@@ -299,12 +308,12 @@ docker_compose_down() {
     if is_container_exists; then
         RUNNING_PROJECT=$(docker inspect open-hamclock-backend | jq -r '.[0].Config.Labels."com.docker.compose.project"')
         if [ "$RUNNING_PROJECT" != "$DOCKER_PROJECT" ]; then
-            echo "ERROR: this OHB was created with a different docker-compsose file. Please run"
-            echo "    'docker stop $CONTAINER'"
-            echo "    'docker rm $CONTAINER'"
-            echo "before running this utility."
+            echo "ERROR: this OHB was created with a different docker-compsose file. Please run" >&2
+            echo "    'docker stop $CONTAINER'" >&2
+            echo "    'docker rm $CONTAINER'" >&2
+            echo "before running this utility." >&2
         else
-            echo "ERROR: OHB failed to stop."
+            echo "ERROR: OHB failed to stop." >&2
         fi
         RETVAL=1
     fi
@@ -332,14 +341,14 @@ remove_ohb() {
     if docker_compose_down; then
         echo "Container stopped successfully."
     else
-        echo "ERROR: failed to stop OHB with docker compose down"
+        echo "ERROR: failed to stop OHB with docker compose down" >&2
         return $RETVAL
     fi
     echo "Removing persistent storage ..."
     if rm_dvc; then
         echo "Persistent storage removed successfully."
     else
-        echo "ERROR: failed to remove persistence storage."
+        echo "ERROR: failed to remove persistence storage." >&2
         return $RETVAL
     fi
 }
@@ -367,12 +376,12 @@ copy_env_to_container() {
         if [ -r "$ENV_FILE" ]; then
             docker cp $ENV_FILE $CONTAINER:/opt/hamclock-backend/.env
         else
-            echo "ERROR: ENV file not found: '$(realpath "$ENV_FILE")'"
+            echo "ERROR: ENV file not found: '$(realpath "$ENV_FILE")'" >&2
             RETVAL=1
         fi
     else
-        echo "ERROR: the docker container needs to exist for this command."
-        echo "Install or start OHB first."
+        echo "ERROR: the docker container needs to exist for this command." >&2
+        echo "Install or start OHB first." >&2
         RETVAL=1
     fi
 
