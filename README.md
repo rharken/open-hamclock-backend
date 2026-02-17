@@ -9,7 +9,7 @@ This is a WIP.
 MIT
 
 ## Join us on Discord 💬
-We are building a community-powered backend to keep Ham Clock running. \
+We are building a community-powered backend to keep HamClock running. \
 Discord is where we can collaborate, troubleshoot, and exchange ideas — no RF license required 😎 \
 https://discord.gg/wb8ATjVn6M
 
