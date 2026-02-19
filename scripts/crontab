@@ -70,7 +70,7 @@ LANG=C
 # maps
 */15 * * * * /opt/hamclock-backend/scripts/kc2g_muf_heatmap.sh >> /opt/hamclock-backend/logs/kc2g_muf_heatmap.log 2>&1
 0 */3 * * * /opt/hamclock-backend/scripts/update_cloud_maps.sh >> /opt/hamclock-backend/logs/update_cloud_maps.log 2>&1
-*/30 * * * * /opt/hamclock-backend/scripts/update_drap_maps.sh >> /opt/hamclock-backend/logs/update_drap_maps.log 2>&1
+7,37 * * * * /opt/hamclock-backend/scripts/update_drap_maps.sh >> /opt/hamclock-backend/logs/update_drap_maps.log 2>&1
 6,30 * * * * /opt/hamclock-backend/scripts/update_aurora_maps.sh >> /opt/hamclock-backend/logs/update_aurora_maps.log 2>&1
 15 0,6,12,18 * * * /opt/hamclock-backend/scripts/update_wx_mb_maps.sh >> /opt/hamclock-backend/logs/update_wx_mb_maps.log 2>&1
 
