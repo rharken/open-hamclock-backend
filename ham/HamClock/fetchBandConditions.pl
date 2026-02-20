@@ -56,6 +56,7 @@ for ($year, $month, $utc, $txlat, $txlng, $rxlat, $rxlng,
 }
 
 # Fetch SSN from NOAA if not supplied
+# Consider fetching local; however smoothed_ssn seems to be what we want
 if (!$ssn || $ssn !~ /^\d+(\.\d+)?$/) {
     my $url = 'https://services.swpc.noaa.gov/json/solar-indices.json';
     my $json = `curl -fsSL --max-time 5 "$url" 2>/dev/null`;
